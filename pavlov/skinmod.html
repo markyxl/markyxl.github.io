@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" />
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/templatemo-style.css" />
+    <title>Markyxl's Pavlov Workshop</title>
+    <script>
+
+    </script>
+<!--
+Mini Profile Template
+https://templatemo.com/tm-530-mini-profile
+-->
+  </head>
+  <body>
+    
+    <!-- Portfolio section -->
+    <section id="tmPortfolio">
+      <div class="container-fluid">
+        <h1>PavlovArtists Weapon Skin Pack</h1>
+        <div class="row">
+          <div class="col-12">
+            <div class="tm-portfolio-item">
+              <div class="tm-portfolio-description">
+                <h3 class="tm-text-orange">
+                  Installation
+                  <span class="tm-title-small"></span>
+                </h3>
+                <p class="mb-0">
+                  This guide assumes the dedicated server was set up on a Linux machine according to instructions at <a href="http://wiki.pavlov-vr.com/index.php?title=Dedicated_server">PavlovVR Wiki</a>.
+                  <ul>
+                    <li>Download <a href="#">ModInitializer</a> into <code>/home/steam/pavlovserver/Pavlov/Content/Paks/pakchunk259_p-LinuxServer.pak</code></li>
+                    <li>Download <a href="#">ModLoader</a> the same way you'd install a regular map into <code>/home/steam/pavlovserver/Pavlov/Saved/maps</code></li>
+                    <li>Download <a href="#">PavlovArtists Weapon Skin Pack</a> the same way you'd install a regular map into <code>/home/steam/pavlovserver/Pavlov/Saved/maps</code></li>
+                    <li>Download <a href="#">serverconfig.json</a> into <code>/home/steam/pavlovserver/Pavlov/Saved/Config/ModSave/WeaponSkinPack/serverconfig.json</code></li>
+                    <li>Put <code>MapRotation=(MapId="SVR_PavlovArtists_Mod_WeaponSkinPack", GameMode="DM")</code> between every map in your rotation in <code>/home/steam/pavlovserver/Pavlov/Saved/Config/LinuxServer/Game.ini</code></li>
+                    <ul>
+                      <li style="margin-left:2em">It should look like this:
+                        <pre>
+MapRotation=(MapId="santorini", GameMode="SND")
+MapRotation=(MapId="SVR_PavlovArtists_Mod_WeaponSkinPack", GameMode="DM")
+MapRotation=(MapId="datacenter", GameMode="TDM")
+MapRotation=(MapId="SVR_PavlovArtists_Mod_WeaponSkinPack", GameMode="DM")
+MapRotation=(MapId="sand", GameMode="SND")
+MapRotation=(MapId="SVR_PavlovArtists_Mod_WeaponSkinPack", GameMode="DM")
+MapRotation=(MapId="industry", GameMode="DM")
+MapRotation=(MapId="SVR_PavlovArtists_Mod_WeaponSkinPack", GameMode="DM")
+                      </pre>
+                    </li>
+                    </ul>
+                  </ul>
+                </p>
+              </div>
+            </div>
+
+            <div class="tm-portfolio-item">
+              <div class="tm-portfolio-description">
+                <h3 class="tm-text-orange">
+                  Configuration
+                  <span class="tm-title-small">(JSON storage)</span>
+                </h3>
+                <p class="mb-0">
+                  By default the mod stores server configuration and player data in JSON format in your server's ModSave directory. This should be good enough for smaller private servers with up to hundreds of total visitors. If you own a large server network, look into the HTTP storage section.<br/>
+                  The server can be configured by editing <code>/home/steam/pavlovserver/Pavlov/Saved/Config/ModSave/WeaponSkinPack/serverconfig.json</code><br/>
+                  These are the configuration options in the file
+                  <ul>
+                    <li><code>Mode</code></li>
+                      <li style="margin-left:2em">The mode controls default availability of skins in the menu. The options for it are:</li>
+                        <li style="margin-left:4em"><code>"Free"</code> - all skins are available to everyone and you don't have to purchase them. Consider using this mode on your server if you have only occasional visitors and you'd like your players to have fun with custom skins.</li>
+                        <li style="margin-left:4em"><code>"Restricted"</code> - no skins are available to anyone by default. You have to explicitly enable specific skins either for all players or for specific players. Consider using this mode in heavily moderated communities like PCL, or on servers where you want only your admins/VIPs to own skins.</li>
+                        <li style="margin-left:4em"><code>"Paid"</code> - all skins are available to everyone, but players have to purchase them for in-game points. Consider using this mode when you want to reward players that play a lot on your server, so that they can buy the skins wich will give them prestige among others. Don't forget to set TrackScore to true if you enable this mode.</li>
+                    <li><code>TrackScore</code></li>
+                      <li style="margin-left:2em">Set to true if players should be awarded in-game currency for points. One point on Pavlov scoreboard amounts to $10. Generally you want to set this to true when you're running "Mode": "Paid", so that players can actually get the currency for the skins they have to buy.</li>
+                    <li><code>PriceMultiplier</code></li>
+                      <li style="margin-left:2em">Multiplies the skin prices with this number to make them either more expensive or cheaper relative to the default prices. Consider increasing the multiplier on servers where players are awarded a lot of points in short amount of time (DM, TDM...), or on servers with dedicated community of frequently returning players, so that everyone doesn't have all skins on day 2 and have nothing to work towards.</li>
+                    <li><code>SkinConfig</code></li>
+                      <li style="margin-left:2em">Allows you to change the default availability and price setting for certain skins to all players. Each entry in this list takes the form of a skin id with sub-entries Mode and Price.</li>
+                      <li style="margin-left:2em"><code>Mode</code> - overrides the server-wide Mode for this skin. So if you're using server-wide Restricted mode, here you can enable individual skins for all players by setting them as Free.</li>
+                        <li style="margin-left:4em">The valid values are basically the same as for the server-wide Mode:</li>
+                          <li style="margin-left:6em"><code>"Free"</code> - The skin will be available for free to everyone</li>
+                          <li style="margin-left:6em"><code>"Restricted"</code> - the skin won't be available to anyone (unless explicitly allowed for individual players in PlayerConfig section)</li>
+                          <li style="margin-left:6em"><code>"Paid"</code> - the skin will be available to everyone, but players have to purchase it for in-game points</li>
+                      <li style="margin-left:2em">Price - overrides the price of this skin in Paid mode. Note that this price is final, so it isn't affected by PriceMultiplier.</li>
+                      <li style="margin-left:2em">Example:</li>
+                        <li style="margin-left:4em">
+                          <pre>
+"Mode": "Paid",
+"SkinConfig":
+{
+    "m4_mark":
+    {
+        "Price": 100
+    },
+    "ak47_goldtrim":
+    {
+        "Mode": "Restricted"
+    }
+}
+                          </pre>
+                        </li>
+                        <li style="margin-left:4em">The server has economy enabled, the skin "m4_mark" has its price reduced to $100, and the skin "ak47_goldtrim" isn't available for anyone to purchase.</li>
+                    <li><code>PlayerConfig</code></li>
+                      <li style="margin-left:2em">Allows you to change the availability of skins for specific players. Each entry in this list takes the form of a player name, with following sub-entries:</li>
+                      <li style="margin-left:2em"><code>Mode</code> - overrides the server-wide or skin-specific availability setting for this player. As usual the valid values are Free, Restricted and Paid. You can also skip this setting and it will use the default configuration for the skin</li>
+                      <li style="margin-left:2em"><code>AllowedSkins</code> - list of skin IDs which are normally Restricted, but are available for this player anyway. Consider restricting some skin and make it available only to certain players with this setting as an event or season reward or someting.</li>
+                      <li style="margin-left:2em"><code>RestrictedSkins</code> - list of skin IDs which are normally Free or Paid, but are restricted for this player anyway. Honestly I don't know what I'd use this for, but since there's the AllowedSkins list, we might as well have the opposite.</li>
+                      <li style="margin-left:2em">Example:</li>
+                        <li style="margin-left:4em">
+                          <pre>
+"Mode": "Paid",
+"SkinConfig":
+{
+  "ak47_goldtrim":
+  {
+    "Mode": "Restricted",
+    "Price": 0
+  }
+},
+"PlayerConfig":
+{
+  "markyxl":
+  {
+    "Mode": "Free"
+  },
+  "CHALK":
+  {
+    "AllowedSkins": ["ak47_goldtrim"]
+  }
+}
+                          </pre>
+                        </li>
+                        <li style="margin-left:4em">The server has economy enabled, the skin "ak47_goldtrim" is restricted only to season winners, but it's free to those who have access. Player "markyxl" is an admin who has access to all skins including the restricted AK. Player "CHALK" is a season winner, so he has access to the restricted AK skin.</li>
+                  </ul>
+                </p>
+              </div>
+            </div>
+
+            <div class="tm-portfolio-item">
+              <div class="tm-portfolio-description">
+                <h3 class="tm-text-orange">
+                  Configuration
+                  <span class="tm-title-small">(HTTP storage)</span>
+                </h3>
+                <p class="mb-0">
+                  If you own a server with larger playerbase, then you might want to consider saving the player data and server config in a database. The mod can communicate with the storage over HTTP. You can either use a storage server by someone else (although none exist at the time of writing this), or implement your own based on the HTTP spec below. Note that this method is intended only for a handful of very experienced people owning large server networks.<br/>
+                  To use http storage, replace the entire contents of <code>/home/steam/pavlovserver/Pavlov/Saved/Config/ModSave/WeaponSkinPack/serverconfig.json</code> with following config attributes instead:
+                  <ul>
+                    <li><code>RemoteUrl</code> - the url of the endpoint, including protocol and port.</li>
+                    <li><code>ServerKey</code> - a key that serves two purposes</li>
+                      <li style="margin-left:2em">As a password so that the backend accepts requests only from your game server and not just anyone if they happen to find out the url of your enpoint. Note that this key is transferred in headers in plaintext, so be cautious about its content especially over HTTP. Sorry about this not being more secure, but we're running game servers here, not banking system.</li>
+                      <li style="margin-left:2em">As an identifier of the server if you have multiple servers connected to the same storage backend. Since server config like Mode is acquired from the http server as well, it allows you to run different servers with different economy settings, while still sharing the player data.</li>
+                      <li style="margin-left:2em">Example (entire serverconfig.json file):</li>
+                        <li style="margin-left:4em">
+                          <pre>
+{
+  "RemoteUrl": "http://192.168.144.1:5000/pavlovWeaponSkinPack",
+  "ServerKey": "mysupersecretpassword:server1"
+}
+                        </pre>
+                      </li>
+                  </ul>
+                  Note that upon activating http storage, all other JSON settings from the file will be ignored and used from the server instead.
+                </p>
+              </div>
+            </div>
+
+            <div class="tm-portfolio-item">
+              <div class="tm-portfolio-description">
+                <h3 class="tm-text-orange">
+                  HTTP
+                  <span class="tm-title-small">REST API Specification</span>
+                </h3>
+                <p class="mb-0">
+                  Warning: If you're a regular server owner you really shouldn't read this. This section is intended for 2 or 3 people in the whole Pavlov community.<br/>
+                  All requests are done with the GET verb.
+                  All parameters are passed to the mod in headers.
+
+                  TODO
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End portfolio section -->
+
+    <!-- Contact section -->
+    <div id="tmContact" class="parallax-window" data-parallax="scroll" data-image-src="img/mini-profile-bg-02.jpg">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="tm-contact-items-container">
+              <!-- 
+              <div class="tm-contact-item">
+                <i class="fas fa-5x fa-briefcase tm-contact-item-icon"></i>
+                <p class="mb-0">
+                  Quisque venenatis viverra ultrices. Lorem ipsum dolor sit
+                  amet. Nullam sit amet tempor nisl.
+                </p>
+              </div>
+              <div class="tm-contact-item">
+                <i class="fas fa-5x fa-building tm-contact-item-icon"></i>
+                <p class="mb-0">
+                  Integer id malesuada ligula. Cras in fringilla nibh, sed
+                  semper turpis. Aliquam efficitur nisl nec.
+                </p>
+              </div>
+
+              <div class="tm-contact-item">
+                <i class="fas fa-5x fa-balance-scale tm-contact-item-icon"></i>
+                <p class="mb-0">
+                  Commodo id ullamcorper ac, dignissim at sapien. Nullam leo
+                  massa, varius ac massa et, tincidunt imperdiet.
+                </p>
+              </div>
+            -->
+            </div>
+          </div>
+        </div>
+
+        
+        <!-- row -->
+        <div class="row">
+          <footer class="col-12">
+            <p class="text-center tm-copyright-text">
+            Copyright 2019 Mini Profile Page 
+            
+            - Design: <a rel="nofollow" href="https://www.facebook.com/templatemo">TemplateMo</a></p>
+          </footer>
+        </div>
+      </div>
+      <!-- container -->
+    </div>
+    <!-- section -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/parallax.min.js"></script>
+    <script>
+      function detectMsBrowser() {
+        using_ms_browser =
+          navigator.appName == "Microsoft Internet Explorer" ||
+          (navigator.appName == "Netscape" &&
+            navigator.appVersion.indexOf("Edge") > -1) ||
+          (navigator.appName == "Netscape" &&
+            navigator.appVersion.indexOf("Trident") > -1);
+
+        if (using_ms_browser == true) {
+          alert(
+            "Please use Chrome or Firefox for the best browsing experience!"
+          );
+        }
+      }
+      function setBrandMarginTop() {
+        var bottomContainerHeight = $(".tm-welcome-container").height();
+
+        $(".tm-brand-container-outer").css({
+          "margin-top": -bottomContainerHeight + "px"
+        });
+      }
+
+      $(function() {
+        setBrandMarginTop();
+        detectMsBrowser();
+
+        // Handle window resize event
+        $(window).resize(function() {
+          setBrandMarginTop();
+        });
+      });
+    </script>
+
+<style type="text/css">
+
+  #darkbox { width:90%; position:absolute;
+    top:0; left:0; background-color:#333; overflow: hidden; text-align:center;
+  }
+  .darkboximg { padding:5%; max-width: 100%; max-height: 100%; }
+
+  #gallery {
+    line-height:0;
+    -webkit-column-count:3;
+    -webkit-column-gap:5px;
+    -moz-column-count:3;
+    -moz-column-gap:5px;
+    column-count:3;
+    column-gap:5px;
+    margin-top:2rem;
+  }
+
+  #gallery img {
+    width: 100% !important;
+    height: auto !important;
+    margin-bottom:5px;
+  }
+
+  #gallery img:hover {
+    filter:none;
+  }
+
+  @media (max-width: 1200px) {
+    #gallery {
+      -moz-column-count:    3;
+      -webkit-column-count: 3;
+      column-count:         3;
+    }
+  }
+  @media (max-width: 1000px) {
+    #gallery {
+      -moz-column-count:    2;
+      -webkit-column-count: 2;
+      column-count:         2;
+    }
+  }
+  @media (max-width: 800px) {
+    #gallery {
+      -moz-column-count:    2;
+      -webkit-column-count: 2;
+      column-count:         2;
+    }
+  }
+  @media (max-width: 400px) {
+    #gallery {
+      -moz-column-count:    1;
+      -webkit-column-count: 1;
+      column-count:         1;
+    }
+  }
+
+  </style>
+<script>
+  let darkBoxVisible = false;
+
+  window.addEventListener('load', (event) => {
+    let images = document.querySelectorAll("img");
+    if(images !== null && images !== undefined && images.length > 0) {
+      images.forEach(function(img) {
+        img.addEventListener('click', (evt) => {
+          showDarkbox(img.src);
+        });
+      });
+    }
+  });
+
+  function showDarkbox(url) {
+    if(!darkBoxVisible) {
+      let x = 100;
+      let y = window.scrollY + 50;
+
+      // Create the darkBox
+      var div = document.createElement("div");
+      div.id = "darkbox";
+      div.innerHTML = '<img class="darkboximg" src="'+url+'" />';
+      document.body.appendChild(div);
+      let box = document.getElementById("darkbox");
+      box.style.left = x.toString()+"px";
+      box.style.top = y.toString()+"px";
+      box.style.height = 'auto';
+      box.addEventListener('click', (event) => {
+        // Remove it
+        let element = document.getElementById("darkbox");
+        element.parentNode.removeChild(element);
+
+        darkBoxVisible = false;
+      })
+
+      darkBoxVisible = true;
+
+    } else {
+      // Remove it
+      let element = document.getElementById("darkbox");
+      element.parentNode.removeChild(element);
+
+      darkBoxVisible = false;
+    }
+  }
+  </script>
+  </body>
+</html>
