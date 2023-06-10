@@ -28,6 +28,19 @@ https://templatemo.com/tm-530-mini-profile
             <div class="tm-portfolio-item">
               <div class="tm-portfolio-description">
                 <h3 class="tm-text-orange">
+                  Description
+                  <span class="tm-title-small"></span>
+                </h3>
+                <p class="mb-0">
+                  PavlovArtists Weapon Skin Pack is the first ever server and client mod that works across all maps released for Pavlov Shack. It gives the players a menu in which they can manage skins for their weapons. The skins are visible to other players and are applied to the weapon permanently until it despawns, so players can trade weapons and mags along with their skins, or steal them from their foes.<br/>
+                  TODO - extend desciprion
+                </p>
+              </div>
+            </div>
+
+            <div class="tm-portfolio-item">
+              <div class="tm-portfolio-description">
+                <h3 class="tm-text-orange">
                   Installation
                   <span class="tm-title-small"></span>
                 </h3>
@@ -177,10 +190,54 @@ MapRotation=(MapId="SVR_PavlovArtists_Mod_WeaponSkinPack", GameMode="DM")
                 </h3>
                 <p class="mb-0">
                   Warning: If you're a regular server owner you really shouldn't read this. This section is intended for 2 or 3 people in the whole Pavlov community.<br/>
-                  All requests are done with the GET verb.
-                  All parameters are passed to the mod in headers.
-
-                  TODO
+                  All requests are done with the GET verb.<br/>
+                  All parameters are passed to the mod in headers.<br/>
+                  Headers present in every request:
+                  <ul>
+                    <li><code>serverkey</code> - the same string that the server has in <code>ServerKey</code> in <code>serverconfig.json</code>. Use this to recognize from which server the request came in.</li>
+                    <li><code>cmd</code> - the operation the request is supposed to perform, see the list below. Normally this would be part of the URL, but since everything is in headers, then what the hell</li>
+                  </ul>
+                  <br/>
+                  Commands:
+                  <ul>
+                    <li>Get Server Config - returns server config in response body in the same JSON format as serverconfig.json described above. Called only once on round start</li>
+                      <li style="margin-left:2em"><code>cmd: sconfig</code></li>
+                      <li style="margin-left:2em">Additional parameters: none</li>
+                      <li style="margin-left:2em">Response body: server config in the same JSON format as serverconfig.json described above, except the PlayerConfig section which isn't used here; there are other requests for that</li>
+                      <li style="margin-left:2em">Sample cURL request: <code>curl http://localhost:5265/pavlovWeaponSkinPack --header "serverkey: abc123" --header "cmd: sconfig"</code></li>
+                      <li style="margin-left:2em">Sample reply: <code>{"Mode":"Paid","TrackScore":true,"PriceMultiplier":0.5}</code></li>
+                    <li>Get Player Config - returns infrequently changed properties of a player. Called when a player joins and whenever the player buys a skin</li>
+                      <li style="margin-left:2em"><code>cmd: pconfig</code></li>
+                      <li style="margin-left:2em">Additional parameters:</li>
+                        <li style="margin-left:4em"><code>player</code> - Oculus name of the player</li>
+                      <li style="margin-left:2em">Response body: player config in the same JSON format as serverconfig.json described above, with one additional field <code>OwnedSkins</code>, which lists skin IDs wich the player bought in Paid mode</li>
+                      <li style="margin-left:2em">Sample cURL request: <code>curl http://localhost:5265/pavlovWeaponSkinPack --header "serverkey: abc123" --header "cmd: pconfig" --header "player: markyxl"</code></li>
+                      <li style="margin-left:2em">Sample reply: <code>{"Mode":"Paid","AllowedSkins":["ak47_goldtrim"],"RestrictedSkins":[],"OwnedSkins":["m4_mark", "ak47_goldtrim"]}</code></li>
+                    <li>Get Player State - returns frequently changed properties of a player - currently only Cash. Called whenever a player score changes when economy is enabled</li>
+                      <li style="margin-left:2em"><code>cmd: pstate</code></li>
+                      <li style="margin-left:2em">Additional parameters:</li>
+                        <li style="margin-left:4em"><code>player</code> - Oculus name of the player</li>
+                      <li style="margin-left:2em">Response body: JSON with field <code>Cash</code> and integer value of the player's cash</li>
+                      <li style="margin-left:2em">Sample cURL request: <code>curl http://localhost:5265/pavlovWeaponSkinPack --header "serverkey: abc123" --header "cmd: pstate" --header "player: markyxl"</code></li>
+                      <li style="margin-left:2em">Sample reply: <code>{"Cash":798}</code></li>
+                    <li>Change Player Cash - modify the amount of currency the player has available</li>
+                      <li style="margin-left:2em"><code>cmd: changecash</code></li>
+                      <li style="margin-left:2em">Additional parameters:</li>
+                        <li style="margin-left:4em"><code>player</code> - Oculus name of the player</li>
+                        <li style="margin-left:4em"><code>cashdelta</code> - Either positive or negative integer how much the player's Cash should change relative to current amount</li>
+                      <li style="margin-left:2em">Response body: empty. You can actually return whatever, but it won't be parsed</li>
+                      <li style="margin-left:2em">Sample cURL request: <code>curl http://localhost:5265/pavlovWeaponSkinPack --header "serverkey: abc123" --header "cmd: changecash" --header "player: markyxl" --header "cashdelta: 2000"</code></li>
+                      <li style="margin-left:2em">Sample reply: empty</li>
+                    <li>Buy Skin - modify the list of OwnedSkins of the player and reduce his available currency with the price of the skin</li>
+                      <li style="margin-left:2em"><code>cmd: buyskin</code></li>
+                      <li style="margin-left:2em">Additional parameters:</li>
+                        <li style="margin-left:4em"><code>player</code> - Oculus name of the player</li>
+                        <li style="margin-left:4em"><code>skin</code> - Skin ID to add to the OwnedSkins list replied in future pconfig requests</li>
+                        <li style="margin-left:4em"><code>price</code> - The cost of the skin. A positive integer that should be subtracted from the player's available currency. If you're wondering if it isn't weird that the price is sent like this instead of being internal, then it's because I don't want you to have to replicate all the logic with price multiplier, modes, and per-player prices in the backend.</li>
+                      <li style="margin-left:2em">Response body: empty. You can actually return whatever, but it won't be parsed</li>
+                      <li style="margin-left:2em">Sample cURL request: <code>curl http://localhost:5265/pavlovWeaponSkinPack --header "serverkey: abc123" --header "cmd: buyskin" --header "player: markyxl" --header "skin: m4_klair" --header "price: 200"</code></li>
+                      <li style="margin-left:2em">Sample reply: empty</li>
+                  </ul>
                 </p>
               </div>
             </div>
