@@ -33,7 +33,7 @@ https://templatemo.com/tm-530-mini-profile
                 </h3>
                 <p class="mb-0">
                   PavlovArtists Weapon Skin Pack is the first ever server and client mod that works across all maps released for Pavlov Shack. It gives the players a menu in which they can manage skins for their weapons. The skins are visible to other players and are applied to the weapon permanently until it despawns, so players can trade weapons and mags along with their skins, or steal them from their foes.<br/>
-                  TODO - extend desciprion
+                  The mod gets installed on players' headset when the map rotates, so first time joiners won't see the menu or the skins just yet.<br/>
                 </p>
               </div>
             </div>
@@ -47,24 +47,24 @@ https://templatemo.com/tm-530-mini-profile
                 <p class="mb-0">
                   This guide assumes the dedicated server was set up on a Linux machine according to instructions at <a href="http://wiki.pavlov-vr.com/index.php?title=Dedicated_server">PavlovVR Wiki</a>.
                   <ul>
-                    <li>Download <a href="#">ModInitializer</a> into <code>/home/steam/pavlovserver/Pavlov/Content/Paks/pakchunk259_p-LinuxServer.pak</code></li>
-                    <li>Download <a href="#">ModLoader</a> the same way you'd install a regular map into <code>/home/steam/pavlovserver/Pavlov/Saved/maps</code></li>
-                    <li>Download <a href="#">PavlovArtists Weapon Skin Pack</a> the same way you'd install a regular map into <code>/home/steam/pavlovserver/Pavlov/Saved/maps</code></li>
-                    <li>Download <a href="#">serverconfig.json</a> into <code>/home/steam/pavlovserver/Pavlov/Saved/Config/ModSave/WeaponSkinPack/serverconfig.json</code></li>
-                    <li>Put <code>MapRotation=(MapId="SVR_PavlovArtists_Mod_WeaponSkinPack", GameMode="DM")</code> between every map in your rotation in <code>/home/steam/pavlovserver/Pavlov/Saved/Config/LinuxServer/Game.ini</code></li>
+                    <li>Download <a href="https://docs.google.com/uc?export=download&id=18ba3h7fw7zyQI7ZnmogNpIqZv2oFNYI1">PavlovArtistsWeaponSkinPack.zip (Shack Live)</a>. A version for Shack RC1 is in the works.</li>
+                    <li>Extract it into <code>/home/steam/pavlovserver/</code></li>
+                      <li style="margin-left:2em">You can verify that it's correctly extracted by checking that the file <code>/home/steam/pavlovserver/Pavlov/Saved/Config/ModSave/WeaponSkinPack/serverconfig.json</code> is present</li>
+                    <li>Put <code>MapRotation=(MapId="SVR_PavlovArtists_Mod_WeaponSkinPack", GameMode="CUSTOM")</code> between every map in your rotation in <code>/home/steam/pavlovserver/Pavlov/Saved/Config/LinuxServer/Game.ini</code></li>
                     <ul>
                       <li style="margin-left:2em">It should look like this:
                         <pre>
 MapRotation=(MapId="santorini", GameMode="SND")
-MapRotation=(MapId="SVR_PavlovArtists_Mod_WeaponSkinPack", GameMode="DM")
+MapRotation=(MapId="SVR_PavlovArtists_Mod_WeaponSkinPack", GameMode="CUSTOM")
 MapRotation=(MapId="datacenter", GameMode="TDM")
-MapRotation=(MapId="SVR_PavlovArtists_Mod_WeaponSkinPack", GameMode="DM")
+MapRotation=(MapId="SVR_PavlovArtists_Mod_WeaponSkinPack", GameMode="CUSTOM")
 MapRotation=(MapId="sand", GameMode="SND")
-MapRotation=(MapId="SVR_PavlovArtists_Mod_WeaponSkinPack", GameMode="DM")
+MapRotation=(MapId="SVR_PavlovArtists_Mod_WeaponSkinPack", GameMode="CUSTOM")
 MapRotation=(MapId="industry", GameMode="DM")
-MapRotation=(MapId="SVR_PavlovArtists_Mod_WeaponSkinPack", GameMode="DM")
-                      </pre>
-                    </li>
+MapRotation=(MapId="SVR_PavlovArtists_Mod_WeaponSkinPack", GameMode="CUSTOM")
+                        </pre>
+                      </li>
+                      <li>Don't worry, it won't be any actually playable maps inserted in the rotation. The SVR_PavlovArtists_Mod_WeaponSkinPack will rotate to the next one right when it starts. It will prolong the time it takes to get to the next map by 30s or so, but it's necessary to ensure the skin pack will download to your players.</li>
                     </ul>
                   </ul>
                 </p>
