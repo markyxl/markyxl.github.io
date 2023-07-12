@@ -30,6 +30,10 @@ https://templatemo.com/tm-530-mini-profile
           <div class="col-12">
             <div class="tm-portfolio-item">
               <div class="tm-portfolio-description">
+
+                <iframe width="100%" style="aspect-ratio: 16/9" src="https://www.youtube.com/embed/oOS3F-6Ex4s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <br/><br/><br/>
+
                 <h3 class="tm-text-orange">
                   Description
                   <span class="tm-title-small"></span>
@@ -38,19 +42,29 @@ https://templatemo.com/tm-530-mini-profile
                   PavlovArtists Weapon Skin Pack is the first ever server and client mod that works across all maps released for Pavlov Shack. It gives the players a menu in which they can manage skins for their weapons. The skins are visible to other players and are applied to the weapon permanently until it despawns, so players can trade weapons and mags along with their skins, or steal them from their foes.<br/>
                   The mod gets installed on players' headset when the map rotates, so first time joiners won't see the menu or the skins just yet.<br/>
                 </p>
+                <br/>
+                <h3 class="tm-text-orange">
+                  Sideloading
+                  <span class="tm-title-small"></span>
+                </h3>
+                <p class="mb-0">
+                  The skin pack should download automatically when the map rotates, but map downloads through the game aren't always the most reliable. If you're struggling with it, you can download the mod separately and copy it to your headset manually. These sideloaded archives also may contain higher-resolution textures than the server version.<br/>
+                  <a href="https://docs.google.com/uc?export=download&id=1VF6Ab6DImuJV2nja3eZVI6k4Wac8Z_37">SVR_PavlovArtists_Mod_WeaponSkinPack.zip (Shack Live)</a><br/>
+                  <a href="#">SVR_PavlovArtists_Mod_WeaponSkinPack.zip (Shack RC)</a> - Coming Soon<br/>
+                </p>
               </div>
             </div>
 
             <div class="tm-portfolio-item">
               <div class="tm-portfolio-description">
                 <h3 class="tm-text-orange">
-                  Installation
+                  Server Installation
                   <span class="tm-title-small"></span>
                 </h3>
                 <p class="mb-0">
                   This guide assumes the dedicated server was set up on a Linux machine according to instructions at <a href="http://wiki.pavlov-vr.com/index.php?title=Dedicated_server">PavlovVR Wiki</a>.
                   <ul>
-                    <li>Download <a href="https://docs.google.com/uc?export=download&id=18ba3h7fw7zyQI7ZnmogNpIqZv2oFNYI1">PavlovArtistsWeaponSkinPack.zip (Shack Live)</a>. A version for Shack RC1 is in the works.</li>
+                    <li>Download <a href="https://docs.google.com/uc?export=download&id=18ba3h7fw7zyQI7ZnmogNpIqZv2oFNYI1">PavlovArtistsWeaponSkinPack.zip (Shack Live)</a> or <a href="#">PavlovArtistsWeaponSkinPackRC.zip (Shack RC, coming soon)</a></li>
                     <li>Extract it into <code>/home/steam/pavlovserver/</code></li>
                       <li style="margin-left:2em">You can verify that it's correctly extracted by checking that the file <code>/home/steam/pavlovserver/Pavlov/Saved/Config/ModSave/WeaponSkinPack/serverconfig.json</code> is present</li>
                     <li>Put <code>MapRotation=(MapId="SVR_PavlovArtists_Mod_WeaponSkinPack", GameMode="CUSTOM")</code> between every map in your rotation in <code>/home/steam/pavlovserver/Pavlov/Saved/Config/LinuxServer/Game.ini</code></li>
